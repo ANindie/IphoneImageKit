@@ -47,6 +47,7 @@ win.g5.rb3 = win.g5.add('radiobutton',undefined,'Save selected layerSets along w
 win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layerSets');
 win.g5.rb5 = win.g5.add('radiobutton',undefined,'Save all layerSets along with the top layer');
 win.g5.rb6 = win.g5.add('radiobutton',undefined,'Save all layerSets along with background layer');
+win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');
 win.g5.rb3.enabled=Back;
 win.g5.rb6.enabled=Back;
 win.g5.rb2.enabled=hasTop;
@@ -128,6 +129,25 @@ Process();
 win.center();
 win.show();
 function Process(){
+
+//Process layers only
+if(win.g5.rb7.value){//Save selected layers
+for(var b in selLayers){
+    selectLayerByIndex(Number(selLayers[b]));
+     var lName = activeDocument.activeLayer.name;
+    var saveFile= File(outputFolder+ "/" + getName(b,lName));
+    dupLayers();
+    if(win.g12.cb1.value){
+        try{activeDocument.mergeVisibleLayers();}catch(e){}
+        }
+     if(win.g12.cb2.value){
+         try{activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);}catch(e){}
+         }
+    SaveDOC(saveFile);
+    app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+    }
+    }//End Save selected layers
+
 if(LSets == 0){
 //Process layers only
 if(win.g5.rb1.value){//Save selected layers
