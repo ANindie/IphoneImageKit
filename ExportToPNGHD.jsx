@@ -80,6 +80,7 @@ win.g12.orientation = "row";
 win.g12.alignment='left';
 win.g12.cb1 = win.g12.add('checkbox',undefined,'Merge Visible Layers?');
 win.g12.cb2 = win.g12.add('checkbox',undefined,'Trim Layer');
+win.g12.cb3 = win.g12.add('checkbox',undefined,'Hd');
 win.g15 =win.p2.add('group');
 win.g15.orientation = "row";
 win.g15.alignment='left';
@@ -361,6 +362,27 @@ switch (Number(win.g15.dd1.selection.index)){
 return Name;
     }
 function SaveDOC(saveFile){
+
+
+
+	 if(win.g12.cb3.value){
+
+	    switch(Number(win.g18.dd1.selection.index)){
+        case 0 : SavePNG(File(saveFile+"-hd.png")); break;
+        case 1:  SavePSD(File(saveFile+".psd")); break;
+        case 2:  SavePDF(File(saveFile+".pdf")); break;
+        case 3:  SaveTIFF(File(saveFile+".tif")); break;
+        case 3:  SaveJPG(File(saveFile+"-hd.jpg"),8); break;
+        default : break;
+        }
+
+
+	width =  activeDocument.width / 2;
+	height = activeDocument.height / 2;
+
+	 activeDocument.resizeImage(width,height,null,ResampleMethod.BICUBIC);
+	}
+
     switch(Number(win.g18.dd1.selection.index)){
         case 0 : SavePNG(File(saveFile+".png")); break;
         case 1:  SavePSD(File(saveFile+".psd")); break;
