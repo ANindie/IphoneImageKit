@@ -1,5 +1,6 @@
 #target photoshop
-//source:Paul Riggott from http://forums.adobe.com/message/3442865
+//An indie
+//Original source: http://forums.adobe.com/message/3442865 by Paul Riggott
 function main(){
 var LSets = activeDocument.layerSets.length;
 var ArtLayers = activeDocument.artLayers.length;

@@ -1,5 +1,6 @@
 ExportToPNGHD
 -------------
+Based on code posted on the forum  http://forums.adobe.com/message/3442865 by Paul Riggott
 
 Photoshop script that helps to select perticuliar layer and export to png (Optionally with hd version.)
 
