@@ -76,17 +76,24 @@ function main()
     win.g10.alignment='left';
     win.g10.et1 = win.g10.add('edittext');
     win.g10.et1.preferredSize=[350,20];
-    win.g10.bu1 = win.g10.add('button',undefined,'Select Folder');
+	
+	
+	
+	win.g10.bu1 = win.g10.add('button',undefined,'Select Folder');
+
+    outputFolder =  Folder('~/Downloads');
+    win.g10.et1.text = decodeURI(outputFolder.fsName);
     win.g10.bu1.onClick=function()
     {
-        var Folder1 = Folder('~/Downloads');
-        outputFolder = Folder.selectDialog("Please select the output folder",Folder1);
-        if(outputFolder !=null)
+
+        outputFolder =  outputFolder.selectDlg();
+         if(outputFolder !=null)
         {
             win.g10.et1.text =  decodeURI(outputFolder.fsName);
         }
-    }
-    win.g12 =win.p2.add('group');
+    }    
+	
+	win.g12 =win.p2.add('group');
     win.g12.orientation = "row";
     win.g12.alignment='left';
     win.g12.cb1 = win.g12.add('checkbox',undefined,'Merge Visible Layers?');
