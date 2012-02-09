@@ -37,39 +37,24 @@ function main()
     if(LSets == 0)
     {
         win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layers');
-  //      win.g5.rb2 = win.g5.add('radiobutton',undefined,'Save selected layers along with the top layer');
-  //      win.g5.rb3 = win.g5.add('radiobutton',undefined,'Save selected layers along with background layer');
         win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layers');
-   //     win.g5.rb5 = win.g5.add('radiobutton',undefined,'Save all layers along with the top layer');
-   //     win.g5.rb6 = win.g5.add('radiobutton',undefined,'Save all layers along with background layer');
-
- //       win.g5.rb3.enabled=Back;
-   //     win.g5.rb6.enabled=Back;
         win.g5.rb1.value=true;
     }
     else
     {
         win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layerSets');
-//        win.g5.rb2 = win.g5.add('radiobutton',undefined,'Save selected layerSets along with the top layer');
- //       win.g5.rb3 = win.g5.add('radiobutton',undefined,'Save selected layerSets along with background layer');
         win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layerSets');
-//        win.g5.rb5 = win.g5.add('radiobutton',undefined,'Save all layerSets along with the top layer');
-//       win.g5.rb6 = win.g5.add('radiobutton',undefined,'Save all layerSets along with background layer');
-        win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');//Me
+        win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');
 
-//        win.g5.rb3.enabled=Back;
-//        win.g5.rb6.enabled=Back;
- //       win.g5.rb2.enabled=hasTop;
-//        win.g5.rb5.enabled=hasTop;
         if(selGroups.length <1)
         {
             win.g5.rb1.enabled=false;
-  //          win.g5.rb2.enabled=false;
-   //         win.g5.rb3.enabled=false;
+			win.g5.rb2.enabled=false;
+      	   	win.g5.rb3.enabled=false;
         }
         win.g5.rb1.value=true;
     }
-win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
+	win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
     win.p2.preferredSize=[500,20];
     win.p2.st1 = win.p2.add('statictext',undefined,'Output details');
     win.p2.st1.graphics.font = ScriptUI.newFont("Tahoma", "Bold", 18);
@@ -95,9 +80,9 @@ win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
     win.g12.orientation = "row";
     win.g12.alignment='left';
     win.g12.cb1 = win.g12.add('checkbox',undefined,'Merge Visible Layers?');
-	win.g12.cb1.value = true;
+    win.g12.cb1.value = true;
     win.g12.cb2 = win.g12.add('checkbox',undefined,'Trim Layer');
-	win.g12.cb2.value = true;
+    win.g12.cb2.value = true;
     win.g12.cb3 = win.g12.add('checkbox',undefined,'Hd');
     win.g15 =win.p2.add('group');
     win.g15.orientation = "row";
@@ -156,35 +141,7 @@ win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
     function Process()
     {
 
-//Process layers only
-        if(win.g5.rb7.value) //Save selected layers
-        {
-            for(var b in selLayers)
-            {
-                selectLayerByIndex(Number(selLayers[b]));
-                var lName = activeDocument.activeLayer.name;
-                var saveFile= File(outputFolder+ "/" + getName(b,lName));
-                dupLayers();
-                if(win.g12.cb1.value)
-                {
-                    try
-                    {
-                        activeDocument.mergeVisibleLayers();
-                    }
-                    catch(e) {}
-                }
-                if(win.g12.cb2.value)
-                {
-                    try
-                    {
-                        activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
-                    }
-                    catch(e) {}
-                }
-                SaveDOC(saveFile);
-                app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-            }
-        }//End Save selected layers
+
 
         if(LSets == 0)
         {
@@ -217,7 +174,7 @@ win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
                     app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
                 }
             }//End Save selected layers
-            if(win.g5.rb2.value) //Save selected layers along with the top layer
+            if(false) //Save selected layers along with the top layer
             {
                 for(var b in selLayers)
                 {
@@ -375,6 +332,36 @@ win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
         else
         {
 //Process LayerSets Only
+            if(win.g5.rb7.value) //Save selected layers
+            {
+                for(var b in selLayers)
+                {
+                    selectLayerByIndex(Number(selLayers[b]));
+                    var lName = activeDocument.activeLayer.name;
+                    var saveFile= File(outputFolder+ "/" + getName(b,lName));
+                    dupLayers();
+                    if(win.g12.cb1.value)
+                    {
+                        /*         try
+                                 {
+                                     activeDocument.mergeVisibleLayers();
+                                 }
+                                 catch(e) {}
+                        *///do not merge now
+                    }
+                    if(win.g12.cb2.value)
+                    {
+                        try
+                        {
+                            activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
+                        }
+                        catch(e) {}
+                    }
+                    SaveDOC(saveFile);
+                    app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+                }
+            }//End Save selected layers
+
             if(win.g5.rb1.value) //Save selected layerSets
             {
                 for(var g in selGroups)
