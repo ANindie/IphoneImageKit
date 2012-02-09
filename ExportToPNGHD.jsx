@@ -22,7 +22,7 @@ function main()
     g = win.graphics;
     var myBrush = g.newBrush(g.BrushType.SOLID_COLOR, [0.99, 0.99, 0.99, 1]);
     g.backgroundColor = myBrush;
-win.p1= win.add("panel", undefined, undefined, {borderStyle:"black"});
+	win.p1= win.add("panel", undefined, undefined, {borderStyle:"black"});
     win.p1.preferredSize=[500,20];
     win.g1 = win.p1.add('group');
     win.g1.orientation = "row";
@@ -67,7 +67,7 @@ win.p1= win.add("panel", undefined, undefined, {borderStyle:"black"});
         }
         win.g5.rb4.value=true;
     }
-win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
+	win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
     win.p2.preferredSize=[500,20];
     win.p2.st1 = win.p2.add('statictext',undefined,'Output details');
     win.p2.st1.graphics.font = ScriptUI.newFont("Tahoma", "Bold", 18);
