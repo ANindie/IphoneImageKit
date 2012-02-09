@@ -37,37 +37,39 @@ function main()
     if(LSets == 0)
     {
         win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layers');
-        win.g5.rb2 = win.g5.add('radiobutton',undefined,'Save selected layers along with the top layer');
-        win.g5.rb3 = win.g5.add('radiobutton',undefined,'Save selected layers along with background layer');
+  //      win.g5.rb2 = win.g5.add('radiobutton',undefined,'Save selected layers along with the top layer');
+  //      win.g5.rb3 = win.g5.add('radiobutton',undefined,'Save selected layers along with background layer');
         win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layers');
-        win.g5.rb5 = win.g5.add('radiobutton',undefined,'Save all layers along with the top layer');
-        win.g5.rb6 = win.g5.add('radiobutton',undefined,'Save all layers along with background layer');
-        win.g5.rb3.enabled=Back;
-        win.g5.rb6.enabled=Back;
-        win.g5.rb4.value=true;
+   //     win.g5.rb5 = win.g5.add('radiobutton',undefined,'Save all layers along with the top layer');
+   //     win.g5.rb6 = win.g5.add('radiobutton',undefined,'Save all layers along with background layer');
+
+ //       win.g5.rb3.enabled=Back;
+   //     win.g5.rb6.enabled=Back;
+        win.g5.rb1.value=true;
     }
     else
     {
         win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layerSets');
-        win.g5.rb2 = win.g5.add('radiobutton',undefined,'Save selected layerSets along with the top layer');
-        win.g5.rb3 = win.g5.add('radiobutton',undefined,'Save selected layerSets along with background layer');
+//        win.g5.rb2 = win.g5.add('radiobutton',undefined,'Save selected layerSets along with the top layer');
+ //       win.g5.rb3 = win.g5.add('radiobutton',undefined,'Save selected layerSets along with background layer');
         win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layerSets');
-        win.g5.rb5 = win.g5.add('radiobutton',undefined,'Save all layerSets along with the top layer');
-        win.g5.rb6 = win.g5.add('radiobutton',undefined,'Save all layerSets along with background layer');
-        win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');
-        win.g5.rb3.enabled=Back;
-        win.g5.rb6.enabled=Back;
-        win.g5.rb2.enabled=hasTop;
-        win.g5.rb5.enabled=hasTop;
+//        win.g5.rb5 = win.g5.add('radiobutton',undefined,'Save all layerSets along with the top layer');
+//       win.g5.rb6 = win.g5.add('radiobutton',undefined,'Save all layerSets along with background layer');
+        win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');//Me
+
+//        win.g5.rb3.enabled=Back;
+//        win.g5.rb6.enabled=Back;
+ //       win.g5.rb2.enabled=hasTop;
+//        win.g5.rb5.enabled=hasTop;
         if(selGroups.length <1)
         {
             win.g5.rb1.enabled=false;
-            win.g5.rb2.enabled=false;
-            win.g5.rb3.enabled=false;
+  //          win.g5.rb2.enabled=false;
+   //         win.g5.rb3.enabled=false;
         }
-        win.g5.rb4.value=true;
+        win.g5.rb1.value=true;
     }
-	win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
+win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
     win.p2.preferredSize=[500,20];
     win.p2.st1 = win.p2.add('statictext',undefined,'Output details');
     win.p2.st1.graphics.font = ScriptUI.newFont("Tahoma", "Bold", 18);
@@ -76,13 +78,10 @@ function main()
     win.g10.alignment='left';
     win.g10.et1 = win.g10.add('edittext');
     win.g10.et1.preferredSize=[350,20];
-	
-	
-	
-	win.g10.bu1 = win.g10.add('button',undefined,'Select Folder');
+    win.g10.bu1 = win.g10.add('button',undefined,'Select Folder');
 
     outputFolder =  Folder('~/Downloads');
-    win.g10.et1.text = decodeURI(outputFolder.fsName);
+	win.g10.et1.text =  decodeURI(outputFolder.fsName);
     win.g10.bu1.onClick=function()
     {
 
@@ -91,9 +90,8 @@ function main()
         {
             win.g10.et1.text =  decodeURI(outputFolder.fsName);
         }
-    }    
-	
-	win.g12 =win.p2.add('group');
+    }
+    win.g12 =win.p2.add('group');
     win.g12.orientation = "row";
     win.g12.alignment='left';
     win.g12.cb1 = win.g12.add('checkbox',undefined,'Merge Visible Layers?');
