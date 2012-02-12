@@ -1,16 +1,16 @@
 ExportToPNGHD
 -------------
-Based on code posted on the forum  http://forums.adobe.com/message/3442865 by Paul Riggott
+Based on the code posted on the forum  http://forums.adobe.com/message/3442865 by Paul Riggott
 
-Photoshop script that helps to select perticuliar layer and export to png (Optionally with hd version.)
-
-
+Photoshop script that helps to choose particular layer and export to png (Optionally with hd version.)
 
 Save this file at:/Applications/Adobe Photoshop CS4/Presets/Scripts
-
 You can access this script by menu File>Scripts>ExportToPNGHD
 
 
+Tested in Adobe CS4.
+Only png version is tested.
 
-Tested in cs4
-[![](https://github.com/ANindie/IphoneImageKit/raw/master/screenshot/ExportLayerInAction.jpg)
+![](https://github.com/ANindie/IphoneImageKit/raw/master/screenshot/ExportLayerInAction.jpg)
+
+You can have all texture resource of a scene in one psd. Select a layer group and export to png file as required.
