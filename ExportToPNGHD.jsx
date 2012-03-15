@@ -117,11 +117,14 @@ function main()
     win.g12 =win.p2.add('group');
     win.g12.orientation = "row";
     win.g12.alignment='left';
+
+
     win.g12.cb1 = win.g12.add('checkbox',undefined,'Merge Visible Layers?');
-    win.g12.cb1.value = true;
+    win.g12.cb1.value = exportInfo.mergevisible;
     win.g12.cb2 = win.g12.add('checkbox',undefined,'Trim Layer');
-    win.g12.cb2.value = true;
+    win.g12.cb2.value = exportInfo.trim;
     win.g12.cb3 = win.g12.add('checkbox',undefined,'Hd');
+	win.g12.cb3.value = exportInfo.hd;
     win.g15 =win.p2.add('group');
     win.g15.orientation = "row";
     win.g15.alignment='left';
@@ -541,6 +544,14 @@ function main()
         }
     }
 
+
+
+     exportInfo.mergevisible = win.g12.cb1.value;
+	 exportInfo.trim=win.g12.cb2.value;
+	 exportInfo.hd = win.g12.cb3.value;
+
+
+
 	
 	
 	var d = objectToDescriptor(exportInfo,"ExportPNHDSettings");
@@ -701,10 +712,9 @@ function SaveJPG(saveFile, jpegQuality)
 ///////////////////////////////////////////////////////////////////////////////
 function initExportInfo(exportInfo) {
     exportInfo.destination = new String("");
-    exportInfo.png8Transparency = true;
-    exportInfo.png8Interlaced = false;
-    exportInfo.png8Trim = true;
-
+    exportInfo.hd = true;
+	exportInfo.mergevisible = true;
+	exportInfo.trim = true;
     try {
         exportInfo.destination = Folder(app.activeDocument.fullName.parent).fsName; // destination folder
         var tmp = app.activeDocument.fullName.name;
