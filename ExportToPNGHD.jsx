@@ -101,8 +101,8 @@ function main()
     win.g10.et1 = win.g10.add('edittext');
     win.g10.et1.preferredSize=[350,20];
     win.g10.bu1 = win.g10.add('button',undefined,'Select Folder');
-
-    outputFolder =  Folder('~/Downloads');
+  
+    outputFolder =  Folder(exportInfo.destination);
 	win.g10.et1.text =  decodeURI(outputFolder.fsName);
     win.g10.bu1.onClick=function()
     {
@@ -111,6 +111,7 @@ function main()
          if(outputFolder !=null)
         {
             win.g10.et1.text =  decodeURI(outputFolder.fsName);
+			exportInfo.destination=win.g10.et1.text;
         }
     }
     win.g12 =win.p2.add('group');
