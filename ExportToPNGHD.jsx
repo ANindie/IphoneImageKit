@@ -389,7 +389,13 @@ function main()
 				SavePNG(File(saveFile+".png"));
 		
 			}
-		catch(e) {}
+		catch(e) 
+		{
+            alert("Error occured while saving file");
+
+		
+		
+		}
 
 
 		
