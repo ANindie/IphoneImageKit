@@ -9,7 +9,7 @@ function main()
 	{
         if ( DialogModes.NO != app.playbackDisplayDialogs ) 
 		{
-            alert( strAlertDocumentMustBeOpened );
+            alert( "Document must be open" );
         }
     	return 'cancel'; // quit, returning 'cancel' (dont localize) makes the actions palette not record our script
     }
