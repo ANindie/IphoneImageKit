@@ -46,13 +46,16 @@ function main()
         win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layerSets');
         win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');
 
+
         if(selGroups.length <1)
         {
             win.g5.rb1.enabled=false;
-			win.g5.rb2.enabled=false;
-      	   	win.g5.rb3.enabled=false;
-        }
-        win.g5.rb1.value=true;
+			win.g5.rb7.value=true;
+		}
+		else
+		{
+			win.g5.rb1.value=true;
+		} 
     }
 	win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
     win.p2.preferredSize=[500,20];
