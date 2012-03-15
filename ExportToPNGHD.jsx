@@ -155,10 +155,13 @@ function main()
     win.g18.alignment='left';
     win.g20 =win.p2.add('group');
     win.g20.orientation = "row";
-    win.g20.bu1 = win.g20.add('button',undefined,'Process');
-    win.g20.bu1.preferredSize=[200,35];
     win.g20.bu2 = win.g20.add('button',undefined,'Cancel');
     win.g20.bu2.preferredSize=[200,35];
+	win.g20.bu1 = win.g20.add('button',undefined,'Process');
+    win.g20.bu1.preferredSize=[200,35];
+	win.defaultElement = win.g20.bu1;
+	win.cancelElement = win.g20.bu2;
+	
     win.g20.bu1.onClick=function()
     {
         if(win.g10.et1.text == '')
