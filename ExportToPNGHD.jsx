@@ -148,10 +148,10 @@ function main()
     }
     win.g18 =win.p2.add('group');
     win.g18.orientation = "row";
-    win.g18.st1 = win.g18.add('statictext',undefined,'Save as :');
-    var Types = ["PNG","PSD","PDF","TIF","JPG"];
-    win.g18.dd1 = win.g18.add('dropdownlist',undefined,Types);
-    win.g18.dd1.selection = 0;
+//    win.g18.st1 = win.g18.add('statictext',undefined,'Save as :');
+//    var Types = ["PNG","PSD","PDF","TIF","JPG"];
+//    win.g18.dd1 = win.g18.add('dropdownlist',undefined,Types);
+//    win.g18.dd1.selection = 0;
     win.g18.alignment='left';
     win.g20 =win.p2.add('group');
     win.g20.orientation = "row";
@@ -494,7 +494,7 @@ function main()
         if(win.g12.cb3.value)
         {
 
-            switch(Number(win.g18.dd1.selection.index))
+            switch(0)//saves png only
             {
             case 0 :
                 SavePNG(File(saveFile+"-hd.png"));
