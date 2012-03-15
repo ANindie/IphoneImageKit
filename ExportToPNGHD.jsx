@@ -215,66 +215,8 @@ function main()
                     app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
                 }
             }//End Save selected layers
-            if(false) //Save selected layers along with the top layer
-            {
-                for(var b in selLayers)
-                {
-                    selectLayerByIndex(Number(selLayers[b]));
-                    var lName = activeDocument.activeLayer.name;
-                    activeDocument.activeLayer= activeDocument.layers[0];
-                    selectLayerByIndex(Number(selLayers[b]),true);
-                    var saveFile= File(outputFolder+ "/" + getName(b,lName));
-                    dupLayers();
-                    if(win.g12.cb1.value)
-                    {
-                        try
-                        {
-                            activeDocument.mergeVisibleLayers();
-                        }
-                        catch(e) {}
-                    }
-                    if(win.g12.cb2.value)
-                    {
-                        try
-                        {
-                            activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
-                        }
-                        catch(e) {}
-                    }
-                    SaveDOC(saveFile);
-                    app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-                }
-            }//End Save selected layers along with the top layer
-            if(win.g5.rb3.value) //Save selected layers along with background layer
-            {
-                for(var b in selLayers)
-                {
-                    selectLayerByIndex(Number(selLayers[b]));
-                    var lName = activeDocument.activeLayer.name;
-                    activeDocument.activeLayer = activeDocument.layers[activeDocument.layers.length-1];
-                    selectLayerByIndex(Number(selLayers[b]),true);
-                    var saveFile= File(outputFolder+ "/" + getName(b,lName));
-                    dupLayers();
-                    if(win.g12.cb1.value)
-                    {
-                        try
-                        {
-                            activeDocument.mergeVisibleLayers();
-                        }
-                        catch(e) {}
-                    }
-                    if(win.g12.cb2.value)
-                    {
-                        try
-                        {
-                            activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
-                        }
-                        catch(e) {}
-                    }
-                    SaveDOC(saveFile);
-                    app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-                }
-            }//End Save selected layers along with background layer
+          
+        
             if(win.g5.rb4.value) //Save all layers
             {
                 selectAllLayers();
@@ -305,71 +247,7 @@ function main()
                     app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
                 }
             }//End Save all layers
-            if(win.g5.rb5.value) //Save all layers along with the top layer
-            {
-                selectAllLayers(1);
-                selLayers =getSelectedLayersIdx();
-                for(var b in selLayers)
-                {
-                    selectLayerByIndex(Number(selLayers[b]));
-                    var lName = activeDocument.activeLayer.name;
-                    activeDocument.activeLayer = activeDocument.layers[0];
-                    selectLayerByIndex(Number(selLayers[b]),true);
-                    var saveFile= File(outputFolder+ "/" + getName(b,lName));
-                    dupLayers();
-                    if(win.g12.cb1.value)
-                    {
-                        try
-                        {
-                            activeDocument.mergeVisibleLayers();
-                        }
-                        catch(e) {}
-                    }
-                    if(win.g12.cb2.value)
-                    {
-                        try
-                        {
-                            activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
-                        }
-                        catch(e) {}
-                    }
-                    SaveDOC(saveFile);
-                    app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-                }
-            }//End Save all layers along with the top layer
-            if(win.g5.rb6.value) //Save all layers along with background layer
-            {
-                selectAllLayers();
-                selLayers =getSelectedLayersIdx();
-                for(var b in selLayers)
-                {
-                    selectLayerByIndex(Number(selLayers[b]));
-                    var lName = activeDocument.activeLayer.name;
-                    activeDocument.activeLayer = activeDocument.layers[activeDocument.layers.length-1];
-                    selectLayerByIndex(Number(selLayers[b]),true);
-                    var saveFile= File(outputFolder+ "/" + getName(b,lName));
-                    dupLayers();
-                    if(win.g12.cb1.value)
-                    {
-                        try
-                        {
-                            activeDocument.mergeVisibleLayers();
-                        }
-                        catch(e) {}
-                    }
-                    if(win.g12.cb2.value)
-                    {
-                        try
-                        {
-                            activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
-                        }
-                        catch(e) {}
-                    }
-                    SaveDOC(saveFile);
-                    app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-                }
-            }//End Save all layers along with background layer
-        }
+		}
         else
         {
 //Process LayerSets Only
