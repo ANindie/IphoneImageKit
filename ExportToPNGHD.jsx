@@ -3,6 +3,40 @@
 //Original source: http://forums.adobe.com/message/3442865 by Paul Riggott
 function main()
 {
+
+
+	if ( app.documents.length <= 0 ) 
+	{
+        if ( DialogModes.NO != app.playbackDisplayDialogs ) 
+		{
+            alert( strAlertDocumentMustBeOpened );
+        }
+    	return 'cancel'; // quit, returning 'cancel' (dont localize) makes the actions palette not record our script
+    }
+	
+	
+	
+	
+	
+	
+    var exportInfo = new Object();
+    
+    initExportInfo(exportInfo);
+    
+ 	// look for last used params via Photoshop registry, getCustomOptions will throw if none exist
+	try {
+		var d = app.getCustomOptions("3CE7FAA9-3C68-4FAE-8F04-6CC1D626B9B4");
+		descriptorToObject(exportInfo, d, "ExportPNHDSettings", false);
+	}
+	catch(e) {
+		// it's ok if we don't have any options, continue with defaults
+	}
+
+	// see if I am getting descriptor parameters
+    descriptorToObject(exportInfo, app.playbackParameters, "ExportPNHDSettings", false);
+    
+	
+
     var LSets = activeDocument.layerSets.length;
     var ArtLayers = activeDocument.artLayers.length;
     var NoOfLayers = activeDocument.layers.length;
@@ -624,8 +658,17 @@ function main()
             break;
         }
     }
+
+	
+	
+	var d = objectToDescriptor(exportInfo,"ExportPNHDSettings");
+            app.putCustomOptions("3CE7FAA9-3C68-4FAE-8F04-6CC1D626B9B4", d);
+
+			var dd = objectToDescriptor(exportInfo, "ExportPNHDSettings");
+            app.playbackParameters = dd;
+	
 }
-main();
+
 function hasBackground()
 {
     var ref = new ActionReference();
@@ -770,3 +813,126 @@ function SaveJPG(saveFile, jpegQuality)
     jpgSaveOptions.quality = jpegQuality; //1-12
     activeDocument.saveAs(saveFile, jpgSaveOptions, true,Extension.LOWERCASE);
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+function initExportInfo(exportInfo) {
+    exportInfo.destination = new String("");
+    exportInfo.png8Transparency = true;
+    exportInfo.png8Interlaced = false;
+    exportInfo.png8Trim = true;
+
+    try {
+        exportInfo.destination = Folder(app.activeDocument.fullName.parent).fsName; // destination folder
+        var tmp = app.activeDocument.fullName.name;
+        exportInfo.fileNamePrefix = decodeURI(tmp.substring(0, tmp.indexOf("."))); // filename body part
+    } catch(someError) {
+        exportInfo.destination = new String("");
+        exportInfo.fileNamePrefix = app.activeDocument.name; // filename body part
+    }
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+function descriptorToObject (o, d, s, f) {
+	var l = d.count;
+	if (l) {
+	    var keyMessage = app.charIDToTypeID( 'Msge' );
+        if ( d.hasKey(keyMessage) && ( s != d.getString(keyMessage) )) return;
+	}
+	for (var i = 0; i < l; i++ ) {
+		var k = d.getKey(i); // i + 1 ?
+		var t = d.getType(k);
+		strk = app.typeIDToStringID(k);
+		switch (t) {
+			case DescValueType.BOOLEANTYPE:
+				o[strk] = d.getBoolean(k);
+				break;
+			case DescValueType.STRINGTYPE:
+				o[strk] = d.getString(k);
+				break;
+			case DescValueType.DOUBLETYPE:
+				o[strk] = d.getDouble(k);
+				break;
+			case DescValueType.UNITDOUBLE:
+				{
+				var uc = new Object;
+				uc[charIDToTypeID("#Rlt")] = "px"; // unitDistance
+				uc[charIDToTypeID("#Prc")] = "%"; // unitPercent
+				uc[charIDToTypeID("#Pxl")] = "px"; // unitPixels
+				var ut = d.getUnitDoubleType(k);
+				var uv = d.getUnitDoubleValue(k);;
+				o[strk] = new UnitValue( uv, uc[ut] );
+				}
+				break;
+			case DescValueType.INTEGERTYPE:
+			case DescValueType.ALIASTYPE:
+			case DescValueType.CLASSTYPE:
+			case DescValueType.ENUMERATEDTYPE:
+			case DescValueType.LISTTYPE:
+			case DescValueType.OBJECTTYPE:	
+			case DescValueType.REFERENCETYPE:
+			default:
+				throw( new Error("Unsupported type in descriptorToObject " + t ) );
+		}
+	}
+//	if (undefined != f) {
+//		o = f(o);
+//	}
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Function: objectToDescriptor
+// Usage: create an ActionDescriptor from a JavaScript Object
+// Input: JavaScript Object (o)
+//        object unique string (s)
+//        Pre process converter (f)
+// Return: ActionDescriptor
+// NOTE: Only boolean, string, number and UnitValue are supported, use a pre processor
+//       to convert (f) other types to one of these forms.
+// REUSE: This routine is used in other scripts. Please update those if you 
+//        modify. I am not using include or eval statements as I want these 
+//        scripts self contained.
+///////////////////////////////////////////////////////////////////////////////
+function objectToDescriptor (o, s) {
+	var d = new ActionDescriptor;
+	var l = o.reflect.properties.length;
+	d.putString( app.charIDToTypeID( 'Msge' ), s );
+	for (var i = 0; i < l; i++ ) {
+		var k = o.reflect.properties[i].toString();
+		if (k == "__proto__" || k == "__count__" || k == "__class__" || k == "reflect")
+			continue;
+		var v = o[ k ];
+		k = app.stringIDToTypeID(k);
+		switch ( typeof(v) ) {
+			case "boolean":
+				d.putBoolean(k, v);
+				break;
+			case "string":
+				d.putString(k, v);
+				break;
+			case "number":
+				d.putDouble(k, v);
+				break;
+			default:
+			{
+				if ( v instanceof UnitValue ) {
+					var uc = new Object;
+					uc["px"] = charIDToTypeID("#Rlt"); // unitDistance
+					uc["%"] = charIDToTypeID("#Prc"); // unitPercent
+					d.putUnitDouble(k, uc[v.type], v.value);
+				} else {
+					throw( new Error("Unsupported type in objectToDescriptor " + typeof(v) ) );
+				}
+			}
+		}
+	}
+    return d;
+}
+
+
+main();
