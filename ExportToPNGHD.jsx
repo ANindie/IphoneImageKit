@@ -366,60 +366,33 @@ function main()
     }
     function SaveDOC(saveFile)
     {
+		try
+		{
+		activeDocument.mergeVisibleLayers();
+		}
+		catch(e) {}
+
+				
+		try
+		{
+			
+				if(win.g12.cb3.value)
+				{
+
+					SavePNG(File(saveFile+"-hd.png"));
+
+					width =  activeDocument.width / 2;
+					height = activeDocument.height / 2;
+
+					activeDocument.resizeImage(width,height,null,ResampleMethod.BICUBIC);
+				}
+				SavePNG(File(saveFile+".png"));
+		
+			}
+		catch(e) {}
 
 
-
-        if(win.g12.cb3.value)
-        {
-
-            switch(0)//saves png only
-            {
-            case 0 :
-                SavePNG(File(saveFile+"-hd.png"));
-                break;
-            case 1:
-                SavePSD(File(saveFile+".psd"));
-                break;
-            case 2:
-                SavePDF(File(saveFile+".pdf"));
-                break;
-            case 3:
-                SaveTIFF(File(saveFile+".tif"));
-                break;
-            case 3:
-                SaveJPG(File(saveFile+"-hd.jpg"),8);
-                break;
-            default :
-                break;
-            }
-
-
-            width =  activeDocument.width / 2;
-            height = activeDocument.height / 2;
-
-            activeDocument.resizeImage(width,height,null,ResampleMethod.BICUBIC);
-        }
-
-        switch(Number(win.g18.dd1.selection.index))
-        {
-        case 0 :
-            SavePNG(File(saveFile+".png"));
-            break;
-        case 1:
-            SavePSD(File(saveFile+".psd"));
-            break;
-        case 2:
-            SavePDF(File(saveFile+".pdf"));
-            break;
-        case 3:
-            SaveTIFF(File(saveFile+".tif"));
-            break;
-        case 3:
-            SaveJPG(File(saveFile+".jpg"),8);
-            break;
-        default :
-            break;
-        }
+		
     }
 
 
@@ -437,6 +410,8 @@ function main()
 
 			var dd = objectToDescriptor(exportInfo, "ExportPNHDSettings");
             app.playbackParameters = dd;
+			
+			
 	
 }
 
