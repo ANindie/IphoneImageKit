@@ -76,8 +76,8 @@ function main()
     }
     else
     {
-        win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layerSets');
-        win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layerSets');
+        win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected Group');
+        win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all Groups');
         win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');
 
 
