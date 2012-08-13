@@ -70,27 +70,48 @@ function main()
     win.g5.spacing=0;
     if(LSets == 0)
     {
-        win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layers');
+	   if(selLayers.length >1)
+			win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layers');
+		else 
+			win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected layers');
+		
         win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all layers');
         win.g5.rb1.value=true;
     }
     else
     {
-        win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected Group');
-        win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all Groups');
-        win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');
+		 if(selGroups.length >0)
+		 {
+			 if(selGroups.length >1)
+				win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected Groups');
+			 else
+				win.g5.rb1 = win.g5.add('radiobutton',undefined,'Save selected Group');
+				
+	    	  win.g5.rb1.value=true;
+		  }
 
+        win.g5.rb4 = win.g5.add('radiobutton',undefined,'Save all Groups');
+		if(selLayers.length - selGroups.length >0)
+		{
+		 if(selLayers.length < 2)
+			win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layer');
+		 else if (selLayers.length )
+		      win.g5.rb7 = win.g5.add('radiobutton',undefined,'Save selected layers');
+		}
 
         if(selGroups.length <1)
         {
-            win.g5.rb1.enabled=false;
-			win.g5.rb7.value=true;
+	    	win.g5.rb7.value=true;
 		}
-		else
-		{
-			win.g5.rb1.value=true;
-		} 
+	
+
+	
+	
     }
+
+     win.g5.rb8 = win.g5.add('radiobutton',undefined,'Save entire image');
+
+
 	win.p2 = win.add("panel", undefined, undefined, {borderStyle:"black"});
     win.p2.preferredSize=[500,20];
     win.p2.st1 = win.p2.add('statictext',undefined,'Output details');
@@ -119,8 +140,6 @@ function main()
     win.g12.alignment='left';
 
 
-    win.g12.cb1 = win.g12.add('checkbox',undefined,'Merge Visible Layers?');
-    win.g12.cb1.value = exportInfo.mergevisible;
     win.g12.cb2 = win.g12.add('checkbox',undefined,'Trim Layer');
     win.g12.cb2.value = exportInfo.trim;
     win.g12.cb3 = win.g12.add('checkbox',undefined,'Hd');
@@ -185,9 +204,40 @@ function main()
     function Process()
     {
 
+		if(win.g5.rb8.value)
+		{
 
+			  selectAllLayers();
+			  selLayers =getSelectedLayersIdx();
+                for(var b in selLayers)
+                {
+                    selectLayerByIndex(Number(selLayers[b]));
+                    var lName = activeDocument.activeLayer.name;
+				  var dName = decodeURI(activeDocument.name).replace(/\.[^\.]+$/, '');
+					
 
-        if(LSets == 0)
+                    var saveFile= File(outputFolder+ "/" + getName(b,dName));
+                    dupLayers();
+                    try
+                    {
+                          activeDocument.mergeVisibleLayers();
+                    }
+                    catch(e) {}
+                    if(win.g12.cb2.value)
+                    {
+                        try
+                        {
+                            activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
+                        }
+                        catch(e) {}
+                    }
+                    SaveDOC(saveFile);
+                    app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+                }
+			
+			}
+
+        else if(LSets == 0)
         {
 //Process layers only
             if(win.g5.rb1.value) //Save selected layers
@@ -198,7 +248,6 @@ function main()
                     var lName = activeDocument.activeLayer.name;
                     var saveFile= File(outputFolder+ "/" + getName(b,lName));
                     dupLayers();
-                    if(win.g12.cb1.value)
                     {
                         try
                         {
@@ -230,14 +279,11 @@ function main()
                     var lName = activeDocument.activeLayer.name;
                     var saveFile= File(outputFolder+ "/" + getName(b,lName));
                     dupLayers();
-                    if(win.g12.cb1.value)
+                    try
                     {
-                        try
-                        {
-                            activeDocument.mergeVisibleLayers();
-                        }
-                        catch(e) {}
+                          activeDocument.mergeVisibleLayers();
                     }
+                    catch(e) {}
                     if(win.g12.cb2.value)
                     {
                         try
@@ -254,7 +300,7 @@ function main()
         else
         {
 //Process LayerSets Only
-            if(win.g5.rb7.value) //Save selected layers
+            if(win.g5.rb7 && win.g5.rb7.value) //Save selected layers
             {
                 for(var b in selLayers)
                 {
@@ -262,7 +308,6 @@ function main()
                     var lName = activeDocument.activeLayer.name;
                     var saveFile= File(outputFolder+ "/" + getName(b,lName));
                     dupLayers();
-                    if(win.g12.cb1.value)
                     {
                         /*         try
                                  {
@@ -292,7 +337,6 @@ function main()
                     var lName = activeDocument.activeLayer.name;
                     var saveFile= File(outputFolder+ "/" + getName(g,lName));
                     dupLayers();
-                    if(win.g12.cb1.value)
                     {
                         try
                         {
@@ -320,7 +364,6 @@ function main()
                     var lName = activeDocument.activeLayer.name;
                     var saveFile= File(outputFolder+ "/" + getName(g,lName));
                     dupLayers();
-                    if(win.g12.cb1.value)
                     {
                         try
                         {
@@ -406,7 +449,6 @@ function main()
 
 
 
-     exportInfo.mergevisible = win.g12.cb1.value;
 	 exportInfo.trim=win.g12.cb2.value;
 	 exportInfo.hd = win.g12.cb3.value;
 
