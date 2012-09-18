@@ -212,7 +212,15 @@ function main()
 		if(win.g5.rb8.value)
 		{
 
-			  selectAllLayers();
+                for(var i=1;i<=activeDocument.layers.length;i++)
+                {
+					 
+				if(activeDocument.layers[i-1].visible == true)	
+                    selectLayerByIndex(i,true);
+
+			  }	
+		         var lName = activeDocument.activeLayer.name;
+			  
 				var dName = decodeURI(activeDocument.name).replace(/\.[^\.]+$/, '');
 					
 
@@ -385,7 +393,22 @@ function main()
             }//End Save all layerSets
         
         }
-    }
+    
+	  
+		    var selLayers =getSelectedLayersIdx();
+
+
+                for(var i=1;i<=activeDocument.layers.length;i++)
+                {
+					 
+				if(activeDocument.layers[i-1].visible == true)	
+                    selectLayerByIndex(i,true);
+
+			  }	
+	
+	
+	
+	}
     function getName(seq,lName)
     {
         seq = zeroPad((Number(seq)+1), 3);
