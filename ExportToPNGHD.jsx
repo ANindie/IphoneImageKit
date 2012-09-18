@@ -198,6 +198,11 @@ function main()
         }
         win.close(1);
         Process();
+		for(var b in selLayers)
+         {
+                    selectLayerByIndex(Number(selLayers[b]));
+		}
+		
     }
     win.center();
     win.show();
