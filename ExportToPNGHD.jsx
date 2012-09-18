@@ -208,12 +208,7 @@ function main()
 		{
 
 			  selectAllLayers();
-			  selLayers =getSelectedLayersIdx();
-                for(var b in selLayers)
-                {
-                    selectLayerByIndex(Number(selLayers[b]));
-                    var lName = activeDocument.activeLayer.name;
-				  var dName = decodeURI(activeDocument.name).replace(/\.[^\.]+$/, '');
+				var dName = decodeURI(activeDocument.name).replace(/\.[^\.]+$/, '');
 					
 
                     var saveFile= File(outputFolder+ "/" + getName(b,dName));
@@ -233,7 +228,7 @@ function main()
                     }
                     SaveDOC(saveFile);
                     app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-                }
+                
 			
 			}
 
