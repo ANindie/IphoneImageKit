@@ -271,7 +271,7 @@ function main()
             }//End Save selected layers
           
         
-            if(win.g5.rb4.value) //Save all layers
+         else   if(win.g5.rb4.value) //Save all layers
             {
                 selectAllLayers();
                 selLayers =getSelectedLayersIdx();
@@ -330,6 +330,9 @@ function main()
                     app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
                 }
             }//End Save selected layers
+			
+			
+		}else
 
             if(win.g5.rb1.value) //Save selected layerSets
             {
@@ -389,18 +392,6 @@ function main()
         }
     
 	  
-		    var selLayers =getSelectedLayersIdx();
-
-
-                for(var i=1;i<=activeDocument.layers.length;i++)
-                {
-					 
-				if(activeDocument.layers[i-1].visible == true)	
-                    selectLayerByIndex(i,true);
-
-			  }	
-	
-	
 	
 	}
     function getName(seq,lName)
