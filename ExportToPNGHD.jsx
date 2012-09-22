@@ -209,23 +209,17 @@ function main()
     function Process()
     {
 
-		if(win.g5.rb8.value)
+		if(win.g5.rb8.value)//entair image
 		{
 
-                for(var i=1;i<=activeDocument.layers.length;i++)
-                {
-					 
-				if(activeDocument.layers[i-1].visible == true)	
-                    selectLayerByIndex(i,true);
+			var dName = decodeURI(activeDocument.name).replace(/\.[^\.]+$/, '');
 
-			  }	
-		         var lName = activeDocument.activeLayer.name;
+			
+		       activeDocument= activeDocument.duplicate();
 			  
-				var dName = decodeURI(activeDocument.name).replace(/\.[^\.]+$/, '');
 					
 
                     var saveFile= File(outputFolder+ "/" + getName(b,dName));
-                    dupLayers();
                     try
                     {
                           activeDocument.mergeVisibleLayers();
