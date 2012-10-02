@@ -332,7 +332,7 @@ function main()
             }//End Save selected layers
 			
 			
-		}else
+		else
 
             if(win.g5.rb1.value) //Save selected layerSets
             {
