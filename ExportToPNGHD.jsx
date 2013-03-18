@@ -1,3 +1,32 @@
+/*
+@@@BUILDINFO@@@ ExportToPNGHD.jsx 1.0.0.29
+*/
+
+/*
+
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+
+<javascriptresource>
+<name>$$$/JavaScripts/ExportToPNGHD/Menu=Export layer groups ...</name>
+<category>layers</category>
+<enableinfo>true</enableinfo>
+<eventid>e805a6ee-6d75-4b62-b6fe-f5873b5fdf20</eventid>
+<terminology><![CDATA[<< /Version 1 
+                         /Events << 
+                          /e805a6ee-6d75-4b62-b6fe-f5873b5fdf20 [($$$/JavaScripts/ExportToPNGHD/Menu=Export layer groups ...) /noDirectParam <<
+                          >>] 
+                         >> 
+                      >> ]]></terminology>
+</javascriptresource>
+
+</javascriptresource>
+
+// END__HARVEST_EXCEPTION_ZSTRING
+
+*/
+
+
+
 #target photoshop
 //An indie
 //Original source: http://forums.adobe.com/message/3442865 by Paul Riggott
