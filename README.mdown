@@ -4,12 +4,19 @@ Based on the code posted on the forum  http://forums.adobe.com/message/3442865 b
 
 Photoshop script that helps to choose particular layer and export to png (Optionally with hd version.)
 
-Save this file at:/Applications/Adobe Photoshop CS4/Presets/Scripts
-You can access this script by menu File>Scripts>ExportToPNGHD
+
+How to install
+--------------
+make install
+
+or 
+
+Save this file at /PhotoshopPATH/Presets/Scripts
+You can access this script by menu File>Scripts>Export Layer Groups
 
 
-Tested in Adobe CS4.
-Only png version is tested.
+Tested in Adobe CS4,CS5 mac.
+
 
 ![](https://github.com/ANindie/IphoneImageKit/raw/master/screenshot/ExportLayerInAction.jpg)
 
